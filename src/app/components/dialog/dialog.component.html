@@ -1,0 +1,39 @@
+<mat-dialog-content [ngSwitch]="data.form">
+    <button class="btn-icon" (click)="onCancel()">
+        <fa-icon [icon]="closeIcon" />
+    </button>
+
+
+    <div class="form-wrapper" *ngSwitchCase="'addClient'">
+        <app-add-client-form></app-add-client-form>
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'updClient'">
+        <app-upd-client-form></app-upd-client-form>
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'addOrder'">
+    
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'updOrder'">
+    
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'addProduct'">
+    
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'updProduct'">
+    
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'addService'">
+    
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'updService'">
+    
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'addWarranty'">
+    
+    </div>
+    <div class="form-wrapper" *ngSwitchCase="'updWarranty'">
+    
+    </div>
+
+
+</mat-dialog-content>

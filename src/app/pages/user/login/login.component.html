@@ -1,0 +1,83 @@
+<div class="bg-blur">
+
+  <div class="container" id="login-container">
+
+    <div class="lg-form-wrapper">
+      <div class="form-column">
+        <div class="title-wrapper">
+          <img src="../../../../assets/images/logo.png" alt="app-logo">
+          <p style="font-size: 1.3rem;">Cellphi</p>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="custom-form">
+          <div class="form-title-wrapper">
+            <div class="login-p-wrapper">
+              <fa-icon [icon]="sparksIcon" />
+              <p>Inicio</p>
+            </div>
+            <div class="header-wrapper">
+              <h1>Una herramienta orientada a la administración de tu taller</h1>
+            </div>
+          </div>
+          <div class="inputs-container">
+            <div class="input-wrapper">
+              <input type="email" class="input" placeholder="email" formControlName="userEmail" autocomplete="email"
+                required>
+
+              <div class="input-icon">
+                <fa-icon [icon]="emailIcon" />
+              </div>
+
+              @if (loginForm.get('userEmail')?.invalid && (loginForm.get('userEmail')?.dirty ||
+              loginForm.get('userEmail')?.touched)) {
+              <p class="alert-message">
+                * dirección email inválida
+              </p>
+              }
+            </div>
+
+            <div class="input-wrapper">
+              <input type="{{ showPassword ? 'text' : 'password' }}" class="input" placeholder="contraseña"
+                autocomplete="current-password" formControlName="userPassword" required>
+
+              <div class="input-icon">
+                <fa-icon [icon]="passwordIcon" />
+              </div>
+
+              <button type="button" class="btn-icon" (click)="onShowPassword()">
+                <fa-icon [icon]="showIcon" />
+              </button>
+
+              @if(loginForm.get('userPassword')?.invalid && (loginForm.get('userPassword')?.dirty ||
+              loginForm.get('userPassword')?.touched)) {
+              <p class="alert-message">
+                * la contraseña debe poseer al menos 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y un caracter
+                especial
+              </p>
+              }
+            </div>
+          </div>
+
+          <div class="redirection-wrapper">
+            <p>Olvidaste tu contraseña? Presione <a class="redirection-link" [routerLink]="['/recover']">aquí</a> para recuperarla</p>
+          </div>
+
+          <button type="submit" class="btn-primary" [disabled]="!loginForm.valid">Sign in</button>
+
+
+        </form>
+
+        <div class="redirection-wrapper">
+          <p>Aún no estás registrado? Únete a la familia pulsando
+            <a class="redirection-link" [routerLink]="['/register']">aquí</a>
+          </p>
+        </div>
+      </div>
+      <div class="image-column">
+        <img src="../../../../assets/images/user-forms-bg.jfif" alt="login-image">
+        <p>{{date}}</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

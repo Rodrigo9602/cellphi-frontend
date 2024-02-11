@@ -1,0 +1,25 @@
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                @for (field of fields; track $index) {
+                <th>{{field}}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (item of pagedItems; track $index) {
+            <tr>
+                @for (field of fields; track $index) {
+                <td>{{item[field]}}</td>
+                }
+            </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <mat-paginator [length]="items.length" [pageSize]="pageSize" (page)="handlePageEvent($event)"
+        aria-label="Select page"></mat-paginator>
+</div>

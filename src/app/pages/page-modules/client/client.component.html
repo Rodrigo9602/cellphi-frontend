@@ -1,0 +1,19 @@
+<div class="module-wapper">
+    @if (clients.length === 0) {
+        <div class="module-message">
+            <h1>Actualmente no tiene clientes registrados</h1>
+            <p>Desea registrar un nuevo cliente?</p>
+            <button class="btn-primary" (click)="onAddClient()">Añadir cliente</button>
+        </div>
+    } @else {
+        <div class="module-header">
+            <p>Clientes registrados</p>
+            <button class="btn-primary" (click)="onAddClient()">Añadir cliente</button>
+        </div>
+        <div class="module-table">
+            <app-table [items]="clients"></app-table>
+        </div>
+    }
+
+    
+</div>

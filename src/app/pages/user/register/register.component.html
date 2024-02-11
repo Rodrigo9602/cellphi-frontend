@@ -1,0 +1,99 @@
+<div class="bg-blur">
+
+    <div class="container" id="login-container">
+
+        <div class="lg-form-wrapper">
+            <div class="form-column">
+                <div class="title-wrapper">
+                    <img src="../../../../assets/images/logo.png" alt="app-logo">
+                    <p style="font-size: 1.3rem;">Cellphi</p>
+                </div>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="custom-form">
+                    <div class="form-title-wrapper">
+                        <div class="login-p-wrapper">
+                            <fa-icon [icon]="sparksIcon" />
+                            <p>Registro</p>
+                        </div>
+                        <div class="header-wrapper">
+                            <h1>Crea una cuenta para poder acceder a nuestros servicios de gestión</h1>
+                        </div>
+                    </div>
+                    <div class="inputs-container">
+
+                        <div class="input-wrapper">
+                            <input type="text" class="input" placeholder="nombre de usuario" formControlName="userName"
+                                autocomplete="username" required>
+
+                            <div class="input-icon">
+                                <fa-icon [icon]="userIcon" />
+                            </div>
+
+                            @if (registerForm.get('userName')?.invalid && (registerForm.get('userName')?.dirty ||
+                            registerForm.get('userName')?.touched)) {
+                            <p class="alert-message">
+                                * nombre de usuario inválido
+                            </p>
+                            }
+                        </div>
+
+
+                        <div class="input-wrapper">
+                            <input type="email" class="input" placeholder="email" formControlName="userEmail"
+                                autocomplete="email" required>
+
+                            <div class="input-icon">
+                                <fa-icon [icon]="emailIcon" />
+                            </div>
+
+                            @if (registerForm.get('userEmail')?.invalid && (registerForm.get('userEmail')?.dirty ||
+                            registerForm.get('userEmail')?.touched)) {
+                            <p class="alert-message">
+                                * dirección email inválida
+                            </p>
+                            }
+                        </div>
+
+                        <div class="input-wrapper">
+                            <input type="{{ showPassword ? 'text' : 'password' }}" class="input"
+                                placeholder="contraseña" autocomplete="current-password" formControlName="userPassword"
+                                required>
+
+                            <div class="input-icon">
+                                <fa-icon [icon]="passwordIcon" />
+                            </div>
+
+                            <button type="button" class="btn-icon" (click)="onShowPassword()">
+                                <fa-icon [icon]="showIcon" />
+                            </button>
+
+                            @if(registerForm.get('userPassword')?.invalid && (registerForm.get('userPassword')?.dirty ||
+                            registerForm.get('userPassword')?.touched)) {
+                            <p class="alert-message">
+                                * la contraseña debe poseer al menos 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y
+                                un caracter
+                                especial
+                            </p>
+                            }
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" [disabled]="!registerForm.valid">Sign up</button>
+
+
+                </form>
+
+                <div class="redirection-wrapper">
+                    <p>Ya tienes una cuenta? Inicia sesión pulsando
+                        <a class="redirection-link" [routerLink]="['/']">aquí</a>
+                    </p>
+                </div>
+            </div>
+            <div class="image-column">
+                <img src="../../../../assets/images/user-forms-bg.jfif" alt="register-image">
+                <p>{{date}}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

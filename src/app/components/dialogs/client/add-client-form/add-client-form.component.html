@@ -1,0 +1,46 @@
+
+<form [formGroup]="addClientForm" (ngSubmit)="onSubmit()" class="dialog-form">
+    <div class="form-title-wrapper">
+        <div class="login-p-wrapper">
+            <fa-icon [icon]="sparksIcon" />
+            <p>Registro de cliente</p>
+        </div>
+    </div>
+
+    <div class="inputs-container">
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="nombre" formControlName="name" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="nameIcon" />
+            </div>
+
+            @if (addClientForm.get('name')?.invalid && (addClientForm.get('name')?.dirty ||
+            addClientForm.get('name')?.touched)) {
+            <p class="alert-message">
+                * nombre de cliente inválido
+            </p>
+            }
+        </div>
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="ci" formControlName="ci" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="ciIcon" />
+            </div>
+
+            @if (addClientForm.get('ci')?.invalid && (addClientForm.get('ci')?.dirty ||
+            addClientForm.get('ci')?.touched)) {
+            <p class="alert-message">
+                * número de identidad inválido
+            </p>
+            }
+        </div>
+    </div>
+
+    <div class="submit-wrapper">
+        <button type="submit" class="btn-primary" [disabled]="!addClientForm.valid">Aceptar</button>
+    </div>
+    
+</form>

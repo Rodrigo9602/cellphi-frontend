@@ -1,0 +1,86 @@
+<div class="home-wrapper">
+    <div class="sidebar">
+        <div class="side-header">
+            <fa-icon [icon]="sideIcon" class="side-icon"/>
+        </div>
+        <div class="divider first-divider"></div>
+        <div class="side-links">
+            <div class="side-link">
+                <button [ngClass]="{'btn-sidenav-selected': selectedView ==='clients', 'btn-sidenav': selectedView !=='clients'}" (click)="onSelectView('clients')">
+                    <fa-icon [icon]="clientIcon" />
+                    Clientes
+                </button>
+            </div>
+            <div class="side-link">
+                <button [ngClass]="{'btn-sidenav-selected': selectedView ==='orders', 'btn-sidenav': selectedView !=='orders'}" (click)="onSelectView('orders')">
+                    <fa-icon [icon]="orderIcon" />
+                    Órdenes
+                </button>
+            </div>
+            <div class="side-link">
+                <button [ngClass]="{'btn-sidenav-selected': selectedView ==='products', 'btn-sidenav': selectedView !=='products'}" (click)="onSelectView('products')">
+                    <fa-icon [icon]="productIcon" />
+                    Productos
+                </button>
+            </div>
+            <div class="side-link">
+                <button [ngClass]="{'btn-sidenav-selected': selectedView ==='services', 'btn-sidenav': selectedView !=='services'}" (click)="onSelectView('services')">
+                    <fa-icon [icon]="serviceIcon" />
+                    Servicios
+                </button>
+            </div>
+            <div class="side-link">
+                <button  [ngClass]="{'btn-sidenav-selected': selectedView ==='warranties', 'btn-sidenav': selectedView !=='warranties'}" (click)="onSelectView('warranties')">
+                    <fa-icon [icon]="warrantyIcon" />
+                    Garantías
+                </button>
+            </div>
+        </div>
+        <div class="divider second-divider"></div>
+        <div class="side-mode">
+            <button class="btn-icon" (click)="onChangeMode()">
+                <fa-icon [icon]="modeIcon" />
+            </button>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="navbar">
+            <div class="nav-header">
+                <h1>Cellphi</h1>
+                <p>Bienvenido de vuelta {{userName}}</p>
+            </div>            
+            <div class="nav-options">
+                <div class="notifications">
+                    <button class="btn-icon">
+                        <fa-icon [icon]="notificationIcon" />
+                    </button>
+                </div>
+                <div class="user-options">
+                    <button class="btn-icon" (click)="onUserMenu()">
+                        <fa-icon [icon]="clientIcon" />
+                    </button>
+
+                    <div [ngClass]="{'user-menu-show': !userMenuHide , 'user-menu-hide': userMenuHide}">
+
+                        <div class="menu-item">
+                            <button class="btn-sidenav" (click)="onLogout()">
+                                <fa-icon [icon]="logoutIcon"></fa-icon>
+                                <p>log out</p>
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="views" [ngSwitch]="selectedView">
+            <app-client *ngSwitchCase="'clients'"></app-client>
+            <app-order *ngSwitchCase="'orders'"></app-order>
+            <app-product *ngSwitchCase="'products'"></app-product>
+            <app-facility *ngSwitchCase="'services'"></app-facility>
+            <app-warranty *ngSwitchCase="'warranties'"></app-warranty>
+        </div>
+    </div>
+    
+</div>

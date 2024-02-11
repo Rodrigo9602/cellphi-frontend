@@ -1,0 +1,18 @@
+mat-dialog-content {
+    width: 100%;
+    min-height: 500px;    
+    background-color: var(--bg);
+
+    .btn-icon {
+        position: absolute;
+        margin-left: 80%;
+        margin-top: 3%;
+        font-size: 1.2rem;
+        color: var(--text-color);
+    }
+
+    .form-wrapper {
+        width: 100%;    
+    }
+}
+

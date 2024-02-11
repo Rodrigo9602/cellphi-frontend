@@ -1,0 +1,118 @@
+<div class="bg-blur">
+
+    <div class="container" id="login-container">
+
+        <div class="lg-form-wrapper">
+            <div class="form-column">
+                <div class="title-wrapper">
+                    <img src="../../../../assets/images/logo.png" alt="app-logo">
+                    <p style="font-size: 1.3rem;">Cellphi</p>
+                </div>
+
+                <div class="form-title-wrapper">
+                    <div class="login-p-wrapper">
+                        <fa-icon [icon]="sparksIcon" />
+                        <p>Recuperación</p>
+                    </div>
+                    <div class="header-wrapper">
+                        <h1>Sistema de recuperación de cuenta</h1>                        
+                    </div>
+                </div>
+
+                @if (token === '') {
+                <form [formGroup]="recoverForm" (ngSubmit)="onRecover()" class="custom-form">                    
+                    <div class="inputs-container">                        
+                        <div class="input-wrapper">
+                            <input type="email" class="input" placeholder="email" formControlName="userEmail"
+                                autocomplete="email" required>
+
+                            <div class="input-icon">
+                                <fa-icon [icon]="emailIcon" />
+                            </div>
+
+                            @if (recoverForm.get('userEmail')?.invalid && (recoverForm.get('userEmail')?.dirty ||
+                            recoverForm.get('userEmail')?.touched)) {
+                            <p class="alert-message">
+                                * dirección email inválida
+                            </p>
+                            }
+                        </div>
+                    </div>
+                    <button class="btn-primary" [disabled]="recoverForm.invalid">Recuperar cuenta</button>
+                </form>
+                <div class="redirection-wrapper">
+                    <p>Quieres regresar a la página de inicio? Presione
+                        <a class="redirection-link" [routerLink]="['/']">aquí</a>
+                    </p>
+                </div>
+                } @else {
+                <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()" class="custom-form">
+                    <div class="inputs-container">
+                        <div class="input-wrapper">
+                            <input type="{{ showPassword ? 'text' : 'password' }}" class="input"
+                                placeholder="contraseña" formControlName="userPassword" required>
+
+                            <div class="input-icon">
+                                <fa-icon [icon]="passwordIcon" />
+                            </div>
+
+                            <button type="button" class="btn-icon" (click)="onShowPassword('password')">
+                                <fa-icon [icon]="showIcon" />
+                            </button>
+
+                            @if(passwordForm.get('userPassword')?.invalid && (passwordForm.get('userPassword')?.dirty ||
+                            passwordForm.get('userPassword')?.touched)) {
+                            <p class="alert-message">
+                                * la contraseña debe poseer al menos 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y
+                                un caracter
+                                especial
+                            </p>
+                            }
+                        </div>
+
+                        <div class="input-wrapper">
+                            <input type="{{ showPasswordConfirmation ? 'text' : 'password' }}" class="input"
+                                placeholder="confirmación de contraseña" formControlName="userPasswordConfirmation"
+                                required>
+
+                            <div class="input-icon">
+                                <fa-icon [icon]="passwordIcon" />
+                            </div>
+
+                            <button type="button" class="btn-icon" (click)="onShowPassword('confirmation')">
+                                <fa-icon [icon]="showConfirmationIcon" />
+                            </button>
+
+                            @if(passwordForm.get('userPasswordConfirmation')?.invalid &&
+                            (passwordForm.get('userPasswordConfirmation')?.dirty ||
+                            passwordForm.get('userPasswordConfirmation')?.touched)) {
+                            <p class="alert-message">
+                                * la contraseña debe poseer al menos 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y
+                                un caracter
+                                especial
+                            </p>
+                            }
+                        </div>
+
+                        @if(passwordForm.value.userPassword !== passwordForm.value.userPasswordConfirmation) {
+                            <p class="alert-message">
+                                * la contraseña y su confirmación deben coincidir
+                            </p>
+                        }
+
+                    </div>
+                    <button type="submit" class="btn-primary" [disabled]="passwordForm.invalid">Cambiar contraseña</button>
+                </form>
+                }
+            </div>
+
+
+            <div class="image-column">
+                <img src="../../../../assets/images/user-forms-bg.jfif" alt="login-image">
+                <p>{{date}}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
