@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -10,7 +10,7 @@ import { ClientService } from '../../../services/client_service/client.service';
 
 
 
-import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-client',
@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
-export class ClientComponent implements OnInit{
+export class ClientComponent {
   public clients:Array<Client> = [];
   
 
@@ -27,24 +27,6 @@ export class ClientComponent implements OnInit{
 
   constructor(private _clientService:ClientService, private _dialog: MatDialog) { }
   
-  ngOnInit(): void {
-    this.userId = localStorage.getItem('id')!;
-
-    this._clientService.findAll(this.userId).subscribe({
-      next: res => {
-        if(res.status === 409 && res.response.error !== 'No existen clientes registrados para este usuario') {
-          Swal.fire({
-            icon: 'error',
-            title: res.response.error,
-          });
-        } else if(res.status === 409 && res.response.error === 'No existen clientes registrados para este usuario') {
-          this.clients = [];
-        } else {
-          this.clients = res;
-        }
-      }
-    });
-  }
 
   onAddClient() {
     const dialogRef = this._dialog.open(

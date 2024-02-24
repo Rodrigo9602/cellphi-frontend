@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user_service/user.service';
 import { SessionService } from '../../services/session_service/session.service';
-
+import { InitService } from '../../services/init_service/init.service';
 
 import { ClientComponent } from '../page-modules/client/client.component';
 import { OrderComponent } from '../page-modules/order/order.component';
@@ -19,6 +19,8 @@ import { faMoon, faSun, faUser, faFileAlt, faBox, faGear, faFileSignature, faBel
 import { faStaylinked } from '@fortawesome/free-brands-svg-icons';
 import { Toast } from '../../global/toast.global';
 import { ModeService } from '../../services/mode_service/mode.service';
+import Swal from 'sweetalert2';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +32,7 @@ import { ModeService } from '../../services/mode_service/mode.service';
 export class HomeComponent implements OnInit {
   private user:User;
   private userId:string = '';
+  private products: Array<Product> = [];
 
   public currentMode: boolean = true;
   public userName: string = '';
@@ -50,7 +53,8 @@ export class HomeComponent implements OnInit {
     private _userService:UserService,
     private _router: Router,
     private _mode: ModeService,
-    private _session: SessionService
+    private _session: SessionService,
+    private _init: InitService
     ) {
 
     this.user = {
@@ -79,6 +83,25 @@ export class HomeComponent implements OnInit {
         }        
       }
     });
+
+    // initializations
+    
+    this._init.initProducts(this.userId).subscribe({
+      next: res => {        
+        if(res.status === 409 && res.response.error !== 'No existen productos registrados para este usuario actualmente') {
+          Swal.fire({
+            icon: 'error',
+            title: res.response.error,
+          });
+        } else if(res.status === 409 && res.response.error === 'No existen productos registrados para este usuario actualmente') {
+          this.products = [];          
+        } else {
+          this.products = res;
+        }        
+        this._init.updateProductsList(this.products); 
+      }
+    })
+
   }
 
   onChangeMode() {
@@ -98,4 +121,6 @@ export class HomeComponent implements OnInit {
   onLogout() {
     this._session.logout();
   }
+
+ 
 }

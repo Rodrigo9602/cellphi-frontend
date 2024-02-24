@@ -3,7 +3,9 @@
         <thead>
             <tr>
                 @for (field of fields; track $index) {
+                @if (field !== '__v' && field !== '_id' && field !== 'userId') {
                 <th>{{field}}</th>
+                }
                 }
             </tr>
         </thead>
@@ -12,7 +14,18 @@
             @for (item of pagedItems; track $index) {
             <tr>
                 @for (field of fields; track $index) {
-                <td>{{item[field]}}</td>
+                    @if (field !== '__v' && field !== '_id' && field !== 'userId') {
+                        @if (field === 'registerDate') {
+                            <td>{{item[field] | date: 'short'}}</td>
+                        }   @else if (field === 'availability') {
+                                <td [ngSwitch]="item[field]">
+                                    <div class="square" *ngSwitchCase="true" style="background-color: #58f31f;"></div>
+                                    <div class="square" *ngSwitchCase="false" style="background-color: #f31f1f;"></div>
+                                </td>
+                            } @else {
+                                <td>{{item[field]}}</td>
+                            }
+                    }
                 }
             </tr>
             }

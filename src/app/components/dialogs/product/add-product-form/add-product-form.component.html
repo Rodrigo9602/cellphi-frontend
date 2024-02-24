@@ -1,0 +1,78 @@
+<form [formGroup]="addProductForm" (ngSubmit)="onSubmit()" class="dialog-form">
+    <div class="form-title-wrapper">
+        <div class="login-p-wrapper">
+            <fa-icon [icon]="sparksIcon" />
+            <p>Registro de producto</p>
+        </div>
+    </div>
+
+    <div class="inputs-container">
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="nombre" formControlName="name" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="nameIcon" />
+            </div>
+
+            @if (addProductForm.get('name')?.invalid && (addProductForm.get('name')?.dirty ||
+            addProductForm.get('name')?.touched)) {
+            <p class="alert-message">
+                * nombre de producto inválido
+            </p>
+            }
+        </div>
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="categoría" formControlName="category" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="categoryIcon" />
+            </div>
+
+            @if (addProductForm.get('category')?.invalid && (addProductForm.get('category')?.dirty ||
+            addProductForm.get('category')?.touched)) {
+            <p class="alert-message">
+                * nombre de categoría inválido
+            </p>
+            }
+        </div>
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="cantidad" formControlName="stock" min="0" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="stockIcon" />
+            </div>
+            
+            @if (addProductForm.get('stock')?.invalid && (addProductForm.get('stock')?.dirty ||
+            addProductForm.get('stock')?.touched)) {
+            <p class="alert-message">
+                * cantidad inválida
+            </p>
+            }
+        </div>
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="precio" formControlName="price" min="0" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="priceIcon" />
+            </div>
+
+            @if (addProductForm.get('price')?.invalid && (addProductForm.get('price')?.dirty ||
+            addProductForm.get('price')?.touched)) {
+            <p class="alert-message">
+                * Precio inválido
+            </p>
+            }
+        </div>
+
+
+
+    </div>
+
+    <div class="submit-wrapper">
+        <button type="submit" class="btn-primary" [disabled]="!addProductForm.valid">Aceptar</button>
+    </div>
+
+</form>

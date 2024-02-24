@@ -1,1 +1,17 @@
-<p>product works!</p>
+<div class="module-wapper">
+    @if (products.length === 0) {
+        <div class="module-message">
+            <h1>Actualmente no tiene productos registrados</h1>
+            <p>Desea registrar un nuevo producto?</p>
+            <button class="btn-primary" (click)="onAddProduct()">Añadir producto</button>
+        </div>
+    } @else {
+        <div class="module-header">
+            <p>Productos registrados</p>
+            <button class="btn-primary" (click)="onAddProduct()">Añadir producto</button>
+        </div>
+        <div class="module-table">
+            <app-table [itemsInput]="products$"></app-table>
+        </div>
+    }    
+</div>

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -10,27 +11,36 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   styleUrl: './table.component.scss'
 })
 export class TableComponent implements OnInit{
+  public items: Array<any> = [];
   public fields: Array<string> = [];
   public pagedItems: Array<any> = [];
   public pageSize: number = 5;
   public pageIndex: number = 0;
   
   
-  @Input() items: Array<any> = [];
+  @Input()
+  itemsInput!: Observable<any>;
+  
   
 
-  constructor() {
-    if(this.items.length !== 0) {
-      this.fields = Object.keys(this.items[0]);   
-    }
-    
-  }
+  constructor() {  }
 
-  ngOnInit(): void {
-    this.handlePageEvent({
-      pageIndex: 0,
-      pageSize: this.pageSize,
-    });
+  ngOnInit(): void { 
+
+    this.itemsInput.subscribe(items => {
+      this.items = items;
+      
+      if(this.items.length !== 0) {
+        this.fields = Object.keys(this.items[0]);   
+      }
+  
+      this.handlePageEvent({
+        pageIndex: 0,
+        pageSize: this.pageSize,
+      });
+    })
+    
+    
 
     
   }

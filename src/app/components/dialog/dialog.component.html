@@ -17,10 +17,10 @@
     
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addProduct'">
-    
+        <app-add-product-form (productAdded)="onAddProduct($event)"></app-add-product-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updProduct'">
-    
+        <app-update-product-form></app-update-product-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addService'">
     
