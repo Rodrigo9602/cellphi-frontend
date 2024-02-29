@@ -24,7 +24,7 @@ export class AddProductFormComponent {
   @Output() productAdded = new EventEmitter<CreateProductInterface>();
 
   public addProductForm = new FormGroup({    
-    name: new FormControl('', Validators.pattern(/^[0-9a-zA-Záéíóúñ\s]*$/)),    
+    name: new FormControl('', Validators.pattern(/^[0-9a-zA-Záéíóúñ/-_\s]*$/)),    
     stock: new FormControl('', Validators.pattern(/^[0-9]*$/)),
     category: new FormControl('', Validators.pattern(/^[a-zA-Záéíóúñ\s]*$/)),
     price: new FormControl('', Validators.pattern(/^[0-9]*$/)),

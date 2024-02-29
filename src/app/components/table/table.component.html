@@ -7,6 +7,7 @@
                 <th>{{field}}</th>
                 }
                 }
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,17 @@
                             }
                     }
                 }
+                <td>
+                    <div class="options-wrapper">
+                        <button class="btn-icon" (click)="onUpdate(item)">
+                            <fa-icon [icon]="updateIcon"  class="icon"/>
+                        </button>
+                        <button class="btn-icon" (click)="onDelete(item)">
+                            <fa-icon [icon]="deleteIcon"  class="icon"/>
+                        </button>
+                    </div>
+                </td>
+                
             </tr>
             }
 

@@ -11,7 +11,7 @@
             <button class="btn-primary" (click)="onAddProduct()">Añadir producto</button>
         </div>
         <div class="module-table">
-            <app-table [itemsInput]="products$"></app-table>
+            <app-table [itemsInput]="products$" (selectedItem)="onSelected($event)"></app-table>
         </div>
     }    
 </div>

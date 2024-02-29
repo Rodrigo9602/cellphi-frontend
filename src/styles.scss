@@ -27,17 +27,18 @@ body,
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .swal2-popup {
     font-size: 1.25rem !important;
     font-family: 'KabelC';
+    
 }
 
 p {
     font-family: 'poppins';
-    font-size: 1rem;
-    pointer-events: none;
+    font-size: 1rem;    
 }
 
 h1 {
@@ -70,6 +71,11 @@ textarea:-webkit-autofill:focus {
     cursor: pointer;
 }
 
+.icon {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
 .btn-primary {
     border: 1px solid transparent;
     border-radius: 0.3rem;
@@ -84,7 +90,8 @@ textarea:-webkit-autofill:focus {
 }
 
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-cancel:hover {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
@@ -92,6 +99,20 @@ textarea:-webkit-autofill:focus {
     cursor: not-allowed;
     background-color: var(--items-color-gradient);
 }
+
+.btn-cancel {
+    border: 1px solid transparent;
+    border-radius: 0.3rem;
+    width: 70%;
+    height: 2.5rem;
+    background-color: #c03333;
+    color: #fff;
+    font-family: 'poppins';
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
 
 
 .btn-sidenav,

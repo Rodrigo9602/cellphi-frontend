@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 
+
 import { TableComponent } from '../../../components/table/table.component';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 
@@ -68,5 +69,48 @@ export class ProductComponent implements OnInit{
         });
       }
     })
+  };
+
+
+  onSelected(event:any) {
+    let dialogRef;
+    let item = event.item;
+
+    switch (event.operation) {
+      case 'update' : 
+      dialogRef = this._dialog.open(
+        DialogComponent, {
+        width: '30%',
+        minWidth: '20rem',
+        minHeight: '500px',
+        data: { form: 'addProduct', dataObject: {} }
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        console.log(res);
+      });
+
+      break;
+
+      case 'delete':
+        dialogRef = this._dialog.open(
+          DialogComponent, {
+          width: '30%',
+          minWidth: '20rem',
+          minHeight: '500px',
+          data: { form: 'confirmation', dataObject: {item} }
+        });
+        dialogRef.afterClosed().subscribe(res => {
+          if (res === 'accept') { 
+            this._productService.delete(item._id).subscribe({
+              next: res => {
+                this.products = this.products.filter(e => e._id != res._id);
+                this._initService.updateProductsList(this.products);
+              },
+              error: e => {console.log(e)}
+            });
+          }
+        });
+      break;
+    }
   }
 }

@@ -1,8 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -34,15 +34,23 @@ import { CreateProductInterface } from '../../interfaces/product_interfaces/crea
 })
 export class DialogComponent {
   public closeIcon = faClose;
+  public sparksIcon = faWandMagicSparkles;
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
+  
+
 
   onAddProduct(response:CreateProductInterface){
     this.data.dataObject = response;
+    this.dialogRef.close(this.data.dataObject);
+  }
+
+  onAccept() {
+    this.data.dataObject = 'accept';
     this.dialogRef.close(this.data.dataObject);
   }
 

@@ -1,8 +1,28 @@
 <mat-dialog-content [ngSwitch]="data.form">
+    @if(data.form !== 'confirmation') {
     <button class="btn-icon" (click)="onCancel()">
         <fa-icon [icon]="closeIcon" />
     </button>
+    }
 
+
+    <div class="form-wrapper" *ngSwitchCase="'confirmation'">
+        <div class="form-title-wrapper">
+            <div class="login-p-wrapper">
+                <fa-icon [icon]="sparksIcon" />
+                <p>Formulario de elimnación</p>
+            </div>
+        </div>
+        <div class="form-content-wrapper">
+            <p>Esta seguro que desea eliminar:</p>
+            <p>{{data.dataObject.item?.name}}</p>
+            <p>*Esta acción es irreversible</p>
+        </div>
+        <mat-dialog-actions>
+            <button class="btn-primary" (click)="onAccept()">Aceptar</button>
+            <button class="btn-cancel" (click)="onCancel()">Cancelar</button>
+        </mat-dialog-actions>
+    </div>
 
     <div class="form-wrapper" *ngSwitchCase="'addClient'">
         <app-add-client-form></app-add-client-form>
@@ -11,10 +31,10 @@
         <app-upd-client-form></app-upd-client-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addOrder'">
-    
+
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updOrder'">
-    
+
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addProduct'">
         <app-add-product-form (productAdded)="onAddProduct($event)"></app-add-product-form>
@@ -23,16 +43,16 @@
         <app-update-product-form></app-update-product-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addService'">
-    
+
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updService'">
-    
+
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addWarranty'">
-    
+
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updWarranty'">
-    
+
     </div>
 
 
