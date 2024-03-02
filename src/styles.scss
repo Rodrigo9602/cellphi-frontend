@@ -218,6 +218,21 @@ textarea:-webkit-autofill:focus {
                 justify-content: center;
             }
         }
+
+        .input-wrapper-alt {
+            width: 100%;
+            display: flex;            
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+
+            label {
+                color: var(--text-color);                
+                font-family: 'poppins';
+                font-size: 1rem;
+            }
+        }
     }
 
     .submit-wrapper {

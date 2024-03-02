@@ -1,12 +1,12 @@
 export class Product {
     constructor(
         public _id:string,
-        public name: String,
-        public stock: Number,
-        public userId: String,
-        public availability: Boolean,
-        public category: String,
-        public price: Number,
+        public name: string,
+        public stock: number,
+        public userId: string,
+        public availability: boolean,
+        public category: string,
+        public price: number,
         public registerDate: Date 
     ) { }
 }

@@ -15,14 +15,14 @@
         </div>
         <div class="form-content-wrapper">
             <p>Esta seguro que desea eliminar:</p>
-            <p>{{data.dataObject.item?.name}}</p>
+            <p>{{data.dataObject?.name}}</p>
             <p>*Esta acción es irreversible</p>
         </div>
         <mat-dialog-actions>
             <button class="btn-primary" (click)="onAccept()">Aceptar</button>
             <button class="btn-cancel" (click)="onCancel()">Cancelar</button>
         </mat-dialog-actions>
-    </div>
+    </div>   
 
     <div class="form-wrapper" *ngSwitchCase="'addClient'">
         <app-add-client-form></app-add-client-form>
@@ -40,7 +40,7 @@
         <app-add-product-form (productAdded)="onAddProduct($event)"></app-add-product-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updProduct'">
-        <app-update-product-form></app-update-product-form>
+        <app-update-product-form (productEmitted)="onProductUpdated($event)" [product]="data.dataObject"></app-update-product-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addService'">
 

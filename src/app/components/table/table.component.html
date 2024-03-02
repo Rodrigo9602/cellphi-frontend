@@ -1,5 +1,11 @@
 <div class="table-wrapper">
     <table>
+        @if(searchActive) {
+            <button class="btn-icon btn-close" (click)="closeMarked()">
+                <fa-icon [icon]="closeIcon" />
+            </button>
+        }
+        
         <thead>
             <tr>
                 @for (field of fields; track $index) {

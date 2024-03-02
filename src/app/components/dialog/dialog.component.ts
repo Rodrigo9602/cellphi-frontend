@@ -15,6 +15,7 @@ import { UpdateProductFormComponent } from '../dialogs/product/update-product-fo
 
 
 import { CreateProductInterface } from '../../interfaces/product_interfaces/create-product';
+import { UpdateProductInterface } from '../../interfaces/product_interfaces/update-product';
 
 
 @Component({
@@ -45,6 +46,11 @@ export class DialogComponent {
 
 
   onAddProduct(response:CreateProductInterface){
+    this.data.dataObject = response;
+    this.dialogRef.close(this.data.dataObject);
+  }
+
+  onProductUpdated(response:UpdateProductInterface) {    
     this.data.dataObject = response;
     this.dialogRef.close(this.data.dataObject);
   }

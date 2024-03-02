@@ -1,4 +1,6 @@
 export interface UpdateProductInterface {
-    availability?: String;
+    name?: String;
+    category?: String;
+    availability?: Boolean;
     stock?: number;
 }

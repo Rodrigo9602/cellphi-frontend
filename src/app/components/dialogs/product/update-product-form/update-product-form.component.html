@@ -1,1 +1,72 @@
-<p>update-product-form works!</p>
+<form [formGroup]="updProductForm" (ngSubmit)="onSubmit()" class="dialog-form">
+    <div class="form-title-wrapper">
+        <div class="login-p-wrapper">
+            <fa-icon [icon]="sparksIcon" />
+            <p>Actualización de producto</p>
+        </div>
+    </div>
+
+    <div class="inputs-container">
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="nombre" formControlName="name">
+
+            <div class="input-icon">
+                <fa-icon [icon]="nameIcon" />
+            </div>
+
+            @if (updProductForm.get('name')?.invalid && (updProductForm.get('name')?.dirty ||
+            updProductForm.get('name')?.touched)) {
+            <p class="alert-message">
+                * nombre de producto inválido
+            </p>
+            }
+        </div>
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="categoría" formControlName="category">
+
+            <div class="input-icon">
+                <fa-icon [icon]="categoryIcon" />
+            </div>
+
+            @if (updProductForm.get('category')?.invalid && (updProductForm.get('category')?.dirty ||
+            updProductForm.get('category')?.touched)) {
+            <p class="alert-message">
+                * nombre de categoría inválido
+            </p>
+            }
+        </div>
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="cantidad" formControlName="stock" min="0">
+
+            <div class="input-icon">
+                <fa-icon [icon]="stockIcon" />
+            </div>
+
+            @if (updProductForm.get('stock')?.invalid && (updProductForm.get('stock')?.dirty ||
+            updProductForm.get('stock')?.touched)) {
+            <p class="alert-message">
+                * cantidad inválida
+            </p>
+            }
+        </div>
+
+
+        <div class="input-wrapper-alt">
+            <input id="availability" type="checkbox" formControlName="availability">
+            <label for="availability">Disponibilidad</label>            
+        </div>
+
+
+
+
+
+
+    </div>
+
+    <div class="submit-wrapper">
+        <button type="submit" class="btn-primary" [disabled]="!updProductForm.valid">Aceptar</button>
+    </div>
+
+</form>

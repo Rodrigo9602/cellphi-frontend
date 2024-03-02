@@ -1,0 +1,31 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form">
+    <div class="inputs-container">
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="search" formControlName="content" required>
+            <button type="button" class="btn-icon" id="filters" (click)="showFiltersMenu()">
+                <fa-icon [icon]="filtersIcon" />
+            </button>
+
+            <div [ngClass]="{'filter-menu-show': !filterMenuHide , 'filter-menu-hide': filterMenuHide}">
+                @for(filter of filters; track $index) {
+                <div class="menu-item">
+                    <input 
+                        type="radio"
+                        name="filters"
+                        id={{filter}}
+                        value={{filter}}
+                        (change)="onFilterChange($event)">
+
+                    <label for={{filter}}>{{filter}}</label>
+                </div>
+                }
+            </div>
+
+            <button type="submit" class="btn-primary" id="search"
+                [disabled]="(searchForm.get('content')?.invalid && (searchForm.get('content')?.dirty || searchForm.get('content')?.touched)) || (searchForm.get('selectedFilter')?.value === '')">
+                <fa-icon [icon]="searchIcon" />
+            </button>
+
+        </div>
+    </div>
+</form>

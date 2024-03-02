@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { TableComponent } from '../../../components/table/table.component';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
-
+import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
 
 
 import { ProductService } from '../../../services/product_service/product.service';
@@ -17,19 +17,28 @@ import { Toast } from '../../../global/toast.global';
 import { BehaviorSubject } from 'rxjs';
 
 import { DatePipe } from '@angular/common';
+import { search_bar } from '../../../types/search-bar';
+
+
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [MatDialogModule, TableComponent],
+  imports: [MatDialogModule, TableComponent, SearchBarComponent, FontAwesomeModule],
   providers: [DatePipe],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
 export class ProductComponent implements OnInit{
   public products:Array<Product> = []; 
+  public productsList: Array<Product> = [];
   products$ = new BehaviorSubject<Product[]>([]);
+
+  public filters = ['id', 'nombre', 'categoría'];
+  public searchActive:boolean = false;
   
+ 
+
   constructor(
     private _productService:ProductService,
     private _initService: InitService,
@@ -83,10 +92,21 @@ export class ProductComponent implements OnInit{
         width: '30%',
         minWidth: '20rem',
         minHeight: '500px',
-        data: { form: 'addProduct', dataObject: {} }
+        data: { form: 'updProduct', dataObject: item }
       });
       dialogRef.afterClosed().subscribe(res => {
-        console.log(res);
+        if(res !== undefined) {
+          this._productService.update(item._id, res).subscribe({
+            next: res => {
+              this._initService.updateProductsList(res);
+              
+              Toast.fire({
+                icon: 'success',
+                title: 'Producto actualizado'
+              });
+            }
+          });
+        }
       });
 
       break;
@@ -97,7 +117,7 @@ export class ProductComponent implements OnInit{
           width: '30%',
           minWidth: '20rem',
           minHeight: '500px',
-          data: { form: 'confirmation', dataObject: {item} }
+          data: { form: 'confirmation', dataObject: item }
         });
         dialogRef.afterClosed().subscribe(res => {
           if (res === 'accept') { 
@@ -112,5 +132,28 @@ export class ProductComponent implements OnInit{
         });
       break;
     }
+  }
+
+  onSearch(searchData: search_bar) { 
+    this.searchActive = true;   
+    this._productService.findByFilter(searchData.selectedFilter, searchData.content).subscribe({
+      next: res => {        
+        if(res.status === 409 ) {
+          Toast.fire({
+            icon: 'error',
+            text: res.response.error
+          });
+        } else {
+          this.productsList = this.products;          
+          this._initService.updateProductsList(res);
+        }
+      },
+      error: e => {console.log(e)}
+    });
+  }
+
+  onEndSearch() {
+    this._initService.updateProductsList(this.productsList);
+    this.searchActive = false;
   }
 }

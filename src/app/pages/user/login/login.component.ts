@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    
     this._session.login(this.loginForm.value.userEmail!, this.loginForm.value.userPassword!).subscribe({
       next: res => {
         if(res.status === 401) {

@@ -4,7 +4,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faClose  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -22,11 +22,16 @@ export class TableComponent implements OnInit{
   
   public updateIcon = faEdit;
   public deleteIcon = faTrash;
+  public closeIcon = faClose;
 
   @Input()
   itemsInput!: Observable<any>;
+
+  @Input()
+  searchActive:boolean = false;
   
   @Output() selectedItem = new EventEmitter<any>();  
+  @Output() onCloseMarked = new EventEmitter<boolean>();
   
 
   constructor() {  }
@@ -65,5 +70,9 @@ export class TableComponent implements OnInit{
   onDelete(item:any) {
     this.selectedItem.emit({item, operation: 'delete'});
     
+  }
+
+  closeMarked() {
+    this.onCloseMarked.emit(true);
   }
 }
