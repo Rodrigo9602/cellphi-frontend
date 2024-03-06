@@ -447,7 +447,7 @@ textarea:-webkit-autofill:focus {
             margin: 0.5em auto;
             font-family: 'kabelC';
             border-collapse: collapse;
-            border: 1px solid var(--text-color);
+            border: 1px solid var(--bg);
         }
 
         thead {
@@ -491,7 +491,17 @@ textarea:-webkit-autofill:focus {
         
         mat-paginator {
             background-color: var(--items-bg);
-            color: var(--text-color);
+            color: var(--text-color);   
+            
+            
+            
+            .mat-mdc-tooltip-trigger:enabled >  .mat-mdc-paginator-icon {
+                fill: var(--text-color);
+            }
+            
+            .mat-mdc-tooltip-trigger:disabled >  .mat-mdc-paginator-icon {
+                fill: #858181;
+            }
         }
 
 

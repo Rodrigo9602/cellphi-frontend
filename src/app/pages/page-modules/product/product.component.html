@@ -9,7 +9,11 @@
         <div class="module-header">
             <p>Productos registrados</p>
             <app-search-bar [filters]="filters" (data)="onSearch($event)"></app-search-bar>
-            <button class="btn-primary" (click)="onAddProduct()">Añadir producto</button>
+            <div class="module-actions">
+                <button class="btn-primary" (click)="onAddProduct()">Añadir producto</button>
+                <button class="btn-primary" (click)="onCreateInventory()">Crear Inventario</button>                
+            </div>
+            
         </div>        
         <div class="module-table">                     
             <app-table [itemsInput]="products$" [searchActive]="searchActive" (selectedItem)="onSelected($event)" (onCloseMarked)="onEndSearch()"></app-table>
