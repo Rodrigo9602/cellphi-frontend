@@ -192,6 +192,7 @@ textarea:-webkit-autofill:focus {
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            
 
             .input {
                 width: 80%;
@@ -424,6 +425,24 @@ textarea:-webkit-autofill:focus {
 
         p {
             color: var(--text-color);
+        }
+
+        app-search-bar {
+            width: 40%;
+        }
+    
+        .module-actions {
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+    
+            .btn-primary {
+                flex-grow: 0.5;
+                width: 25%;
+            }   
         }
     }
 

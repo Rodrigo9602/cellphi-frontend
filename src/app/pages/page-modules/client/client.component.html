@@ -8,10 +8,14 @@
     } @else {
         <div class="module-header">
             <p>Clientes registrados</p>
-            <button class="btn-primary" (click)="onAddClient()">Añadir cliente</button>
+            <app-search-bar [filters]="filters" (data)="onSearch($event)"></app-search-bar>
+            <div class="module-actions">
+                <button class="btn-primary" (click)="onAddClient()">Añadir cliente</button>
+                <button class="btn-primary" (click)="onCreateRegister()">Generar listado</button>                
+            </div>
         </div>
         <div class="module-table">
-            <!--<app-table [items]="clients"></app-table>-->
+            <app-table [itemsInput]="clients$" [searchActive]="searchActive" (selectedItem)="onSelected($event)" (onCloseMarked)="onEndSearch()"></app-table>
         </div>
     }    
 </div>

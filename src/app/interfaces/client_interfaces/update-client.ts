@@ -1,3 +1,4 @@
 export interface UpdateClientInterface {
-    name:string
+    name:string,
+    ci:string,
 }

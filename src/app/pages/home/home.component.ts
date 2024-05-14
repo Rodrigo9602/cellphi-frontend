@@ -21,6 +21,8 @@ import { Toast } from '../../global/toast.global';
 import { ModeService } from '../../services/mode_service/mode.service';
 import Swal from 'sweetalert2';
 import { Product } from '../../models/product';
+import { Client } from '../../models/client';
+import { Warranty } from '../../models/warranty';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +35,8 @@ export class HomeComponent implements OnInit {
   private user:User;
   private userId:string = '';
   private products: Array<Product> = [];
+  private clients: Array<Client> = [];
+  private warranties: Array<Warranty> = [];
 
   public currentMode: boolean = true;
   public userName: string = '';
@@ -100,9 +104,43 @@ export class HomeComponent implements OnInit {
         }        
         this._init.updateProductsList(this.products); 
       }
-    })
+    });
+
+    this._init.initClients(this.userId).subscribe({
+      next: res => {        
+        if(res.status === 409 && res.response.error !== 'No existen clientes registrados para este usuario') {
+          Swal.fire({
+            icon: 'error',
+            title: res.response.error,
+          });
+        } else if(res.status === 409 && res.response.error === 'No existen clientes registrados para este usuario') {
+          this.clients = [];          
+        } else {
+          this.clients = res;
+        }        
+        this._init.updateClientsList(this.clients);
+      }
+    });
+
+    this._init.initWarranty(this.userId).subscribe({
+      next: res => {         
+        if(res.status === 409 && res.response.error !== 'No existen garantías registradas actualmente') {
+          Swal.fire({
+            icon: 'error',
+            title: res.response.error,
+          });
+        } else if(res.status === 409 && res.response.error === 'No existen garantías registradas actualmente') {
+          this.warranties = [];          
+        } else {
+          this.warranties = res;
+        }        
+        this._init.updateWarrantyList(this.warranties);
+      }
+    });
 
   }
+
+  // End of initializations
 
   onChangeMode() {
     this.currentMode = !this.currentMode;

@@ -16,7 +16,7 @@ export class PdfService {
 
   constructor() { }  
 
-  generate(header:string, columnsHeaders: Array<string>, items:Array<any>, pdfName:string):void {
+  generate(header:string, columnsHeaders: Array<string>, pdfName:string, items:Array<any>):void {
     const widths = Array(columnsHeaders.length).fill('*');    
 
     let document:  TDocumentDefinitions = {
@@ -29,7 +29,7 @@ export class PdfService {
             widths: widths,        
             body: [
               columnsHeaders.map(h => [{text: h, style: 'tableHeader'}]),
-              items.map((item: any) => columnsHeaders.map((header: string) => item[header]))
+              ...items
             ]
           },
           layout: 'lightHorizontalLines'

@@ -1,0 +1,58 @@
+.custom-select {
+    position: relative;    
+    width: 100%; 
+  }
+
+  .select-header {
+    padding: 0px 10px;
+    border-radius: 6px;  
+    background-color: var(--items-bg);
+    border: 1px solid var(--bg);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .arrow {
+    border: solid var(--text-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transition:all 0.3s ease;
+  }
+
+  .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+
+  .up {
+    transform: rotate(225deg);
+    -webkit-transform: rotate(225deg);
+  }
+
+  .select-options {
+    position: absolute;
+    background-color: var(--items-bg);
+    border: 1px solid var(--bg);
+    z-index: 1;
+    width: 100%;
+    min-width: 470px;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+
+  
+  span,
+  .option {
+    padding: 10px;
+    cursor: pointer;
+    color: var(--text-color);
+    font-family: 'poppins';
+  }
+
+  .option:hover {
+    background-color: var(--items-color-gradient-sec);
+  }

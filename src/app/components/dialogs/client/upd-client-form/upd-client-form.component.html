@@ -1,1 +1,45 @@
-<p>upd-client-form works!</p>
+<form [formGroup]="updClientForm" (ngSubmit)="onSubmit()" class="dialog-form">
+    <div class="form-title-wrapper">
+        <div class="login-p-wrapper">
+            <fa-icon [icon]="sparksIcon" />
+            <p>Actualización de cliente</p>
+        </div>
+    </div>
+
+    <div class="inputs-container">
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="nombre" formControlName="name">
+
+            <div class="input-icon">
+                <fa-icon [icon]="nameIcon" />
+            </div>
+
+            @if (updClientForm.get('name')?.invalid && (updClientForm.get('name')?.dirty ||
+            updClientForm.get('name')?.touched)) {
+            <p class="alert-message">
+                * nombre de cliente inválido
+            </p>
+            }
+        </div>
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="ci" formControlName="ci" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="ciIcon" />
+            </div>
+
+            @if (updClientForm.get('ci')?.invalid && (updClientForm.get('ci')?.dirty ||
+            updClientForm.get('ci')?.touched)) {
+            <p class="alert-message">
+                * número de identidad inválido
+            </p>
+            }
+        </div>
+    </div>
+
+    <div class="submit-wrapper">
+        <button type="submit" class="btn-primary" [disabled]="!updClientForm.valid">Aceptar</button>
+    </div>
+
+</form>

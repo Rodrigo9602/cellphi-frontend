@@ -25,10 +25,10 @@
     </div>   
 
     <div class="form-wrapper" *ngSwitchCase="'addClient'">
-        <app-add-client-form></app-add-client-form>
+        <app-add-client-form (clientAdded)="onAddItem($event)"></app-add-client-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updClient'">
-        <app-upd-client-form></app-upd-client-form>
+        <app-upd-client-form (clientEmitted)="onItemUpdated($event)" [client]="data.dataObject"></app-upd-client-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addOrder'">
 
@@ -37,10 +37,10 @@
 
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addProduct'">
-        <app-add-product-form (productAdded)="onAddProduct($event)"></app-add-product-form>
+        <app-add-product-form (productAdded)="onAddItem($event)"></app-add-product-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updProduct'">
-        <app-update-product-form (productEmitted)="onProductUpdated($event)" [product]="data.dataObject"></app-update-product-form>
+        <app-update-product-form (productEmitted)="onItemUpdated($event)" [product]="data.dataObject"></app-update-product-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addService'">
 
@@ -49,10 +49,10 @@
 
     </div>
     <div class="form-wrapper" *ngSwitchCase="'addWarranty'">
-
+        <app-add-warranty-form (warrantyAdded)="onAddItem($event)" [productData]="data.dataObject"></app-add-warranty-form>
     </div>
     <div class="form-wrapper" *ngSwitchCase="'updWarranty'">
-
+        <app-upd-warranty-form ></app-upd-warranty-form>
     </div>
 
 

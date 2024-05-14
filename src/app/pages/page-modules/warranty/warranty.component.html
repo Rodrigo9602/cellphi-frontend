@@ -1,1 +1,23 @@
-<p>warranty works!</p>
+<div class="module-wapper">
+    @if (warranties.length === 0) {
+        <div class="module-message">
+            <h1>Actualmente no tienes garantías registradas</h1>
+            <p>Desea registrar un nueva garantía?</p>
+            <button class="btn-primary" (click)="onAddWarranty()">Añadir garantía</button>
+        </div>
+    } @else {
+        <div class="module-header">
+            <p>Productos registrados</p>
+            <app-search-bar [filters]="filters" (data)="onSearch($event)"></app-search-bar>
+            <div class="module-actions">
+                <button class="btn-primary" (click)="onAddWarranty()">Registrar garantía</button>
+                <button class="btn-primary" (click)="onCreateRegister()">Crear registro</button>                
+            </div>
+            
+        </div>        
+        <div class="module-table">                     
+            <app-table [itemsInput]="warranty$" [searchActive]="searchActive" (selectedItem)="onSelected($event)" (onCloseMarked)="onEndSearch()"></app-table>
+        </div>
+    }    
+</div>
+

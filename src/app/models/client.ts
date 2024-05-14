@@ -5,8 +5,7 @@ export class Client {
         public _id:string,       
         public name: string,
         public ci: string,
-        public userId: string,
-        public password: string,
+        public userId: string,        
         public orders: Array<Order>
     ) { }
 }

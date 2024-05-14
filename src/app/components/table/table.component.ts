@@ -4,7 +4,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { faEdit, faTrash, faClose  } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faClose, faFileCircleCheck  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -22,6 +22,7 @@ export class TableComponent implements OnInit{
   
   public updateIcon = faEdit;
   public deleteIcon = faTrash;
+  public GarantyIcon = faFileCircleCheck;
   public closeIcon = faClose;
 
   @Input()
@@ -32,6 +33,23 @@ export class TableComponent implements OnInit{
   
   @Output() selectedItem = new EventEmitter<any>();  
   @Output() onCloseMarked = new EventEmitter<boolean>();
+
+  public tableLabels = {
+    _id : 'id',
+    clientId: 'nombre del cliente',
+    name: 'nombre',    
+    orders: 'ordenes',
+    description: 'descripcion',
+    price: 'precio',
+    stock: 'cantidad',
+    availability: 'disponibilidad',
+    category: 'categoria',
+    registerDate: 'registro',
+    productId: 'nombre de producto',    
+    days: 'dias de garantia',
+    emitionDate: 'emision',
+    ci: 'ci'
+  }
   
 
   constructor() {  }
@@ -39,21 +57,23 @@ export class TableComponent implements OnInit{
   ngOnInit(): void { 
 
     this.itemsInput.subscribe(items => {
-      this.items = items;
+      this.items = items;    
       
+
       if(this.items.length !== 0) {
-        this.fields = Object.keys(this.items[0]);   
-      }
+        this.fields = Object.keys(this.items[0]);        
+      } 
   
       this.handlePageEvent({
         pageIndex: 0,
         pageSize: this.pageSize,
       });
-    })
-    
-    
+      
+    })   
+  }
 
-    
+  getTableLabel(field: string): string {
+    return (this.tableLabels as Record<string, string>)[field];
   }
 
   handlePageEvent(event: any) {
@@ -68,8 +88,11 @@ export class TableComponent implements OnInit{
   }
 
   onDelete(item:any) {
-    this.selectedItem.emit({item, operation: 'delete'});
-    
+    this.selectedItem.emit({item, operation: 'delete'});    
+  }
+
+  onAddGaranty(item:any) {
+    this.selectedItem.emit({item, operation: 'garanty'});    
   }
 
   closeMarked() {

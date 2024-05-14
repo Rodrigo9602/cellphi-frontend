@@ -1,7 +1,3 @@
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from "pdfmake/build/vfs_fonts";
-
-
 import { Component, OnInit } from '@angular/core';
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,10 +19,9 @@ import { BehaviorSubject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { search_bar } from '../../../types/search-bar';
 
-import { TDocumentDefinitions } from 'pdfmake/interfaces';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 import { PdfService } from '../../../services/pdf_service/pdf.service';
+import { WarrantyService } from '../../../services/warranty_service/warranty.service';
+import { Warranty } from '../../../models/warranty';
 
 
 @Component({
@@ -38,6 +33,7 @@ import { PdfService } from '../../../services/pdf_service/pdf.service';
   styleUrl: './product.component.scss'
 })
 export class ProductComponent implements OnInit {
+  public warranties: Array<Warranty> = [];
   public products: Array<Product> = [];
   public productsList: Array<Product> = [];
   products$ = new BehaviorSubject<Product[]>([]);
@@ -49,6 +45,7 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private _productService: ProductService,
+    private _warrantyService: WarrantyService,
     private _initService: InitService,
     private _dialog: MatDialog,
     public datePipe: DatePipe,
@@ -77,6 +74,10 @@ export class ProductComponent implements OnInit {
 
       })
       this.products$.next(products);
+    });
+
+    this._initService.warranties$.subscribe((warranties: Array<Warranty>) => {
+      this.warranties = warranties;
     });
 
   }
@@ -159,6 +160,34 @@ export class ProductComponent implements OnInit {
           }
         });
         break;
+
+      case 'garanty':
+        dialogRef = this._dialog.open(
+          DialogComponent, {
+          width: '30%',
+          minWidth: '20rem',
+          minHeight: '500px',
+          data: { form: 'addWarranty', dataObject: item }
+        });
+
+        dialogRef.afterClosed().subscribe(res => {
+          if (res !== undefined) {
+            this._warrantyService.create(res).subscribe({
+              next: res => {
+                this.warranties.push(res);
+                this._initService.updateWarrantyList(this.warranties);
+                
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Garantía registrada'
+                });
+              },
+              error: e => { console.log(e) }
+            })
+          }
+        });
+
+
     }
   }
 
@@ -188,43 +217,12 @@ export class ProductComponent implements OnInit {
 
   onCreateInventory() {
     let header = `Inventario de productos generado en la fecha ${new Date().toDateString()}`;
-    let columnsHeaders = ['Nombre','Cantidad','Categoria','Precio'];
-    let items = this.products.map(p => ({Nombre: p.name, Cantidad: p.stock, Categoria: p.category, Precio: p.price}));
+    let columnsHeaders = ['Nombre', 'Cantidad', 'Categoria', 'Precio'];
+    let items = [...this.products.map(p => [p.name, p.stock, p.category, p.price])]
     const name = 'inventario de productos';
-    
-    this._pdfService.generate(header, columnsHeaders, items, name);
 
-   /*let document:  TDocumentDefinitions = {
-    
-      content: [               
-        {text:`Inventario de productos generado en la fecha ${new Date().toDateString()}`, fontSize: 14, bold: true, margin: [0, 20, 30, 8]},
-        {
-          style: 'Inventory_Table',
-          table: {    
-            headerRows: 1,
-            widths: ['*','*','*','*'],        
-            body: [
-              [{text:'Nombre', style: 'tableHeader'}, {text: 'Cantidad en stock', style: 'tableHeader'}, {text: 'Categoría', style: 'tableHeader'}, {text:'Precio',style: 'tableHeader'}],
-              ...this.products.map(p => [p.name, p.stock, p.category, p.price])
-            ]
-          },
-          layout: 'lightHorizontalLines'
-        }        
-      ],  
-      styles: {
-        Inventory_Table: {
-          margin: [0, 5, 0, 15]
-        },
-        tableHeader: {
-          bold: true,
-          fontSize: 13,
-          color: 'black'
-        }
-      }    
-    };       
-    
-    pdfMake.createPdf(document).download('inventario de productos');*/
 
+    this._pdfService.generate(header, columnsHeaders, name, items);
 
   }
 }

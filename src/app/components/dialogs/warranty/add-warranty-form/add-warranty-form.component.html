@@ -1,0 +1,44 @@
+<form [formGroup]="addWarrantyForm" (ngSubmit)="onSubmit()" class="dialog-form">
+    <div class="form-title-wrapper">
+        <div class="login-p-wrapper">
+            <fa-icon [icon]="sparksIcon" />
+            <p>Registro de garantía</p>
+        </div>
+    </div>
+
+    <div class="inputs-container">
+        <div class="input-wrapper">
+           <app-select [options]="clients" (selectedOptionChange)="onClientSelected($event)" />                       
+        </div>   
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="id del producto" formControlName="productId" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="nameIcon" />
+            </div>            
+        </div>   
+
+        <div class="input-wrapper">
+            <input type="text" class="input" placeholder="cantidad de días" formControlName="days" min="0" required>
+
+            <div class="input-icon">
+                <fa-icon [icon]="daysIcon" />
+            </div>
+            
+            @if (addWarrantyForm.get('days')?.invalid && (addWarrantyForm.get('days')?.dirty ||
+            addWarrantyForm.get('days')?.touched)) {
+            <p class="alert-message">
+                * cantidad de días asignados inválida
+            </p>
+            }
+        </div>
+
+
+    </div>
+
+    <div class="submit-wrapper">
+        <button type="submit" class="btn-primary" [disabled]="!addWarrantyForm.valid">Aceptar</button>
+    </div>
+
+</form>

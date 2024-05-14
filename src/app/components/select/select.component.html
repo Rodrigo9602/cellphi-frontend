@@ -1,0 +1,11 @@
+<div class="custom-select">
+    <div class="select-header" (click)="toggleDropdown()">
+      <span>{{ selectedOption ? selectedOption.name : 'Seleccione el cliente' }}</span>
+      <i class="arrow" [ngClass]="{ 'down': !isDropdownOpen, 'up': isDropdownOpen }"></i>
+    </div>
+    <div class="select-options" *ngIf="isDropdownOpen">
+      <div class="option" *ngFor="let option of options" (click)="selectOption(option)">
+        {{ option.name }}
+      </div>
+    </div>
+  </div>

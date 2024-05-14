@@ -1,19 +1,20 @@
 <div class="table-wrapper">
     <table>
         @if(searchActive) {
-            <button class="btn-icon btn-close" (click)="closeMarked()">
-                <fa-icon [icon]="closeIcon" />
-            </button>
+        <button class="btn-icon btn-close" (click)="closeMarked()">
+            <fa-icon [icon]="closeIcon" />
+        </button>
         }
-        
+
         <thead>
             <tr>
                 @for (field of fields; track $index) {
-                @if (field !== '__v' && field !== '_id' && field !== 'userId') {
-                <th>{{field}}</th>
+                @if (field !== '__v' && field !== 'userId') {
+                   <th>{{getTableLabel(field)}}</th>
+                
                 }
                 }
-                <th>Options</th>
+                <th>opciones</th>
             </tr>
         </thead>
         <tbody>
@@ -21,30 +22,49 @@
             @for (item of pagedItems; track $index) {
             <tr>
                 @for (field of fields; track $index) {
-                    @if (field !== '__v' && field !== '_id' && field !== 'userId') {
-                        @if (field === 'registerDate') {
+                    @if (field !== '__v' && field !== 'userId') {
+                        @if (field === 'registerDate' || field === 'emitionDate') {
                             <td>{{item[field] | date: 'short'}}</td>
-                        }   @else if (field === 'availability') {
-                                <td [ngSwitch]="item[field]">
-                                    <div class="square" *ngSwitchCase="true" style="background-color: #58f31f;"></div>
-                                    <div class="square" *ngSwitchCase="false" style="background-color: #f31f1f;"></div>
-                                </td>
-                            } @else {
-                                <td>{{item[field]}}</td>
-                            }
+                        }@else if (field === 'availability') {
+                            <td [ngSwitch]="item[field]">
+                                <div class="square" *ngSwitchCase="true" style="background-color: #58f31f;"></div>
+                                <div class="square" *ngSwitchCase="false" style="background-color: #f31f1f;"></div>
+                            </td>
+                        }@else if (field === 'orders') {
+                            <td>
+                                <a href="">{{item[field].length}}</a>
+                            </td>
+                        }@else if(field === 'productId' && item[field].name) {
+                            <td>{{item[field].name}}</td>
+                        }@else if(field === 'clientId' && item[field].name) {
+                            <td>{{item[field].name}}</td>
+                        }                        
+                        @else {
+                            <td>{{item[field]}}</td>
+                        }
+
+                        
                     }
+
+                   
                 }
                 <td>
                     <div class="options-wrapper">
                         <button class="btn-icon" (click)="onUpdate(item)">
-                            <fa-icon [icon]="updateIcon"  class="icon"/>
+                            <fa-icon [icon]="updateIcon" class="icon" />
                         </button>
+                        @if(fields.includes('availability')) {
+                            <button class="btn-icon" (click)="onAddGaranty(item)">
+                                <fa-icon [icon]="GarantyIcon" class="icon" />
+                            </button>
+                        }                        
                         <button class="btn-icon" (click)="onDelete(item)">
-                            <fa-icon [icon]="deleteIcon"  class="icon"/>
+                            <fa-icon [icon]="deleteIcon" class="icon" />
                         </button>
+                        
                     </div>
                 </td>
-                
+
             </tr>
             }
 
